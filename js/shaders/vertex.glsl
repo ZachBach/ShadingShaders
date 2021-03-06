@@ -83,8 +83,11 @@ void main(){
     float noise=cnoise(vec3(position.x*4.,position.y*4.+time/5.,0.));
     // newposition.z+=.1*sin((newposition.x+.25+time/10.)*2.*PI);
     // newposition.z+=.2*noise;
+    float dist=distance(uv,vec2(.5));
     
-    vNoise=noise;
+    newposition.z+=.05*sin(dist*40.-time);
+    
+    vNoise=dist;
     vUv=uv;
     
     gl_Position=projectionMatrix*modelViewMatrix*vec4(newposition,1.);
