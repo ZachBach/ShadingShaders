@@ -73,11 +73,17 @@ float cnoise(vec3 P){
     return 2.2*n_xyz;
 }
 
+uniform float time;
+varying float vNoise;
+
 void main(){
     vec3 newposition=position;
     float PI=3.1415925;
-    newposition.z+=.1*sin((newposition.x+.25)*2.*PI);
-    // newposition.z+=.1*cnoise(vec3(position.x*4.,position.y*4.,0.));
+    float noise=cnoise(vec3(position.x*4.,position.y*4.+time/5.,0.));
+    // newposition.z+=.1*sin((newposition.x+.25+time/10.)*2.*PI);
+    newposition.z+=.2*noise;
+    
+    vNoise=noise;
     
     gl_Position=projectionMatrix*modelViewMatrix*vec4(newposition,1.);
 }
@@ -103,3 +109,8 @@ void main(){
 // especially using the number PI so now its between 0-1 for x and then we times it by 0.5ish
 //     float PI=3.1415925;
 // newposition.z+=.1*sin((newposition.x+.25)*2.*PI); is very useful for an exact arch using PI.
+// the sine function is exactly between 0 and PI.
+
+// vertex is ran on the gpu and the javascript on the cpu.
+//  we imported uniform float for our time from our js and then we added it to our sine function and then divided it by 10 points
+// Now we are left with a beautiful wave like animation. ex. newposition.z+=.1*sin((newposition.x+.25+time/10.)*2.*PI);

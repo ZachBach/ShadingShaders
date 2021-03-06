@@ -45,14 +45,17 @@ export default class Sketch {
 
     addObjects() {
         
-    this.geometry = new THREE.PlaneBufferGeometry( 0.5, 0.5,50,50);
+    this.geometry = new THREE.PlaneBufferGeometry( 4, 4,150,150);
 	this.material = new THREE.MeshNormalMaterial();
 
     this.material = new THREE.ShaderMaterial({
+        uniforms: {
+            time: {value: 0}
+        },
         side: THREE.DoubleSide,
         fragmentShader: fragment,
         vertexShader:  vertex,
-        wireframe: true
+        // wireframe: true
     })
 
 	this.mesh = new THREE.Mesh( this.geometry, this.material );
@@ -66,6 +69,8 @@ export default class Sketch {
         this.time+=0.05;
         this.mesh.rotation.x = this.time / 2000;
 	    this.mesh.rotation.y = this.time / 1000;
+
+        this.material.uniforms.time.value = this.time;
 
 	    this.renderer.render( this.scene, this.camera );
         // console.log(this.time); Check out the magic of time incrementing in 0.05 ms!
@@ -95,4 +100,11 @@ new Sketch({
 
 // By adding the wireframe: true we can see inside our shapes and shaders and all the points 
 // in the 3d space. this.geometry = new THREE.PlaneBufferGeometry( 0.5, 0.5,10,10); Awesome grid looking cube
-// 
+
+
+
+// Once we apply the shader vertex using PI we want to add uniforms to our object as well
+// Then since we have to update our time we do this in the render function.
+//  this.material.uniforms.time.value = this.time;
+
+// this.geometry = new THREE.PlaneBufferGeometry( 4, 4,50,50); to create realistic wave.
