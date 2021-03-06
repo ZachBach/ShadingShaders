@@ -45,7 +45,7 @@ export default class Sketch {
 
     addObjects() {
         
-    this.geometry = new THREE.PlaneBufferGeometry( 0.5, 0.5,100,100);
+    this.geometry = new THREE.PlaneBufferGeometry( 0.5, 0.5,50,50);
 	this.material = new THREE.MeshNormalMaterial();
 
     this.material = new THREE.ShaderMaterial({
