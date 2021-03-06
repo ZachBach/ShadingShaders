@@ -19,7 +19,7 @@ void main(){
     // gl_FragColor=vec4(finalColor,1.);
     gl_FragColor=vec4(vUv,0.,1.);
     // gl_FragColor=oceanView+.5*vec4(vNoise);
-    gl_FragColor=vec4(vNoise);
+    // gl_FragColor=vec4(vNoise);
 }
 
 // Fragment shaders are important for colors. We have to be careful about the number of colored pixels
